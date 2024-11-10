@@ -5,7 +5,7 @@ import {User} from "../models/user.models.js"
 const createProject = async(req,res)=>{
     try {
 
-        // Here we are checking project_id and name is coming or not 
+        // Here we are checking name is coming or not 
         const {name,description,creator,projectStatus,expectedReturn,experimentalProject,aiAssistant,sensitive,tagString,collaborators}  =req.body;
         if(!name ){
             return res.status(400).json({
@@ -188,6 +188,8 @@ const getProjectById  = async(req,res)=>{
         //here we are searching in the data base
         const projectDetails = await Project.findById( projectId );
 
+
+        //here we are checking project is present or not
         if(!projectDetails){
             return res.status(404).json({
                 message:"Project not found",
@@ -195,6 +197,7 @@ const getProjectById  = async(req,res)=>{
             });
         }
 
+        //here we are returing the project with success message
         return res.status(201).json({
             message:"Project details fetched successfully",
             success:true,
